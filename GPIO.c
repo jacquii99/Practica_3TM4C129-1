@@ -1,4 +1,7 @@
 #include "lib/include.h"
+
+#ifndef GPIO_H_
+#define GPIO_H_
 extern void Configurar_GPIO(void)
 {
     //Paso 1 Enceder el periferico Run Clock Gate Control GPIO
@@ -68,4 +71,4 @@ extern void GPIOJ_INT_ISR(void)
     }
     GPIOJ_AHB->ICR |=(1<<0)|(1<<1);
 }
-
+#endif /* INCLUDE_H_ */

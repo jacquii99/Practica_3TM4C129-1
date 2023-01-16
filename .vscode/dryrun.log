@@ -1,0 +1,7 @@
+make.exe -f C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky> --dry-run --always-make --keep-going --print-directory
+make: C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky: Permission denied
+
+make: *** No rule to make target 'C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky'.
+make: Failed to remake makefile 'C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky'.
+make: *** No targets specified and no makefile found.  Stop.
+

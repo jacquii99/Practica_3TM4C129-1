@@ -1,0 +1,5 @@
+make.exe all -f C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky> --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky: Permission denied
+
+make: *** No rule to make target 'C:\Users\Admin\Documents\Micro\tiva-c\boards\ek-tm4c1294xl\blinky'.  Stop.
+

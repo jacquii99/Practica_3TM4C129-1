@@ -3,7 +3,7 @@
 
 
 extern void Configurar_GPIO(void);
-extern void Prender_LED(void);
+extern void Delay_LED(void);
 
 
 #endif /* GPIO_GPIO_H_ */

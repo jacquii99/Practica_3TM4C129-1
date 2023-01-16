@@ -1,10 +1,10 @@
 #include "lib/include.h"
 
-extern void Configurar_UART0(void)
+extern void Configurar_UART1(void)
 {
-    SYSCTL->RCGCUART  = (1<<0);   //Paso 1 (RCGCUART) pag.344 UART/modulo0 0->Disable 1->Enable
-    SYSCTL->RCGCGPIO |= (1<<0);     //Paso 2 (RCGCGPIO) pag.340 Enable clock port A
-    //(GPIOAFSEL) pag.671 Enable alternate function
+    SYSCTL->RCGCUART  = (1<<0);   //Paso 1 habilitar (RCGCUART) pag.344  
+    SYSCTL->RCGCGPIO |= (1<<0);     //Paso 2 (RCGCGPIO) habilitar el perifierico  pag.340 Enable clock port A
+    //(GPIOAFSEL) pag.671 Habilitar la funcion alternativa 
     GPIOA_AHB->AFSEL = (1<<1) | (1<<0);
     //GPIO Port Control (GPIOPCTL) PA0-> U0Rx PA1-> U0Tx pag.688
     GPIOA_AHB->PCTL = (GPIOA_AHB->PCTL&0xFFFFFF00) | 0x00000011;// (1<<0) | (1<<4);//0x00000011
@@ -83,3 +83,13 @@ extern char * readString(char delimitador)
 // invertirlo y regresarlo con numeros consecutivos
 // entre letras (e1v2a3r) 
 
+void nombre(char c)
+{
+    while ((UART0_FR & UART_FR_TXFF)!=0)
+    UART0_DR_R=c;
+}
+void main (void)
+{
+    config_uart0();
+    nombre (); 
+} 
