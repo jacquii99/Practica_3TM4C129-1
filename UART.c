@@ -85,3 +85,5 @@ extern char * readString(char delimitador)
 
 // invertirlo y regresarlo con numeros consecutivos
 // entre letras (e1v2a3r) 
+
+
