@@ -1,6 +1,6 @@
 #include "lib/include.h"
 
-extern void Configurar_UART1(void)
+extern void Configurar_UART0(void)
 {
     SYSCTL->RCGCUART  = (1<<0);   //Paso 1 habilitar (RCGCUART) pag.344  
     SYSCTL->RCGCGPIO |= (1<<0);     //Paso 2 (RCGCGPIO) habilitar el perifierico  pag.340 Enable clock port A

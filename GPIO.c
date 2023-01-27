@@ -5,34 +5,34 @@
 extern void Configurar_GPIO(void)
 {
     //Paso 1 Enceder el periferico Run Clock Gate Control GPIO
-    SYSCTL->RCGCGPIO |= (1<<1) | (1<<5) | (1<<8) | (1<<12);//enable GPIOF,GPION,GPIOJ
+                    //     F        J         N 
+    SYSCTL->RCGCGPIO |= (1<<5) | (1<<8) | (1<<12);//habilita los puertos
     while((SYSCTL->PRGPIO&0x20)==0){};
-    //Paso 2
+    //Paso 2 
+      GPIOF -> LOCK =0x4C4F434B; 
  //   GPIO_PORTB_AHB_LOCK_R = 0x4C4F434B;
  //   GPIO_PORTB_AHB_CR_R = (1<<3);
-
-    //Salidas
-    GPIOF_AHB->DIR |= (1<<0) | (1<<4);
-    GPION->DIR |= (1<<0) | (1<<1);
-    GPIOB_AHB->DIR |= (1<<3);
-    //Entradas
+    //Habilita los pines como salidas (output 1, input 0)
+    GPIOF_AHB->DIR |= (1<<0) | (1<<4); 
+    GPION->DIR |= (1<<0) | (1<<1);  
+    //habilita los pines como entradas (output1, input0)
     GPIOJ_AHB->DIR |= (0<<1) | (0<<0);
+    //borra el bit correspondiente en el registro (0 disabled, 1 enable)
     GPIOJ_AHB->PUR =  (1<<1) | (1<<0);
-    //Paso 3
+
+    //Paso 3  configurar GPIOAFSELF para habilitar pines como alternativos 
     GPIOJ_AHB->AFSEL |= 0x00;
     GPION->AFSEL |= 0x00;
     GPIOF_AHB->AFSEL |= 0x00;
-    GPIOB_AHB->AFSEL |= 0x00;
 
+    //paso 4 establecer el campo EDMn en el registro GPIOPC pagina 753
     GPIOJ_AHB->PCTL|= 0x00;
     GPION->PCTL |= 0x00;
     GPIOF_AHB->PCTL |= 0x00;
-    GPIOB_AHB->PCTL |= 0x00;
-
+    //paso 5 habilitar pines como digitales 
     GPIOF_AHB->DEN |= (1<<0) | (1<<4);
     GPION->DEN |= (1<<0) | (1<<1);
     GPIOJ_AHB->DEN |= (1<<1) | (1<<0);
-    GPIOB_AHB->DEN |=  (1<<3);
 
     //configurar evento de interrupcion PORTJ
     GPIOJ_AHB->IM |= (0<<1) | (0<<0); //Limpiar los bits
