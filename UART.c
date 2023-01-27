@@ -85,14 +85,3 @@ extern char * readString(char delimitador)
 
 // invertirlo y regresarlo con numeros consecutivos
 // entre letras (e1v2a3r) 
-
-void nombre(char c)
-{
-    while ((UART5_FR & UART_FR_TXFF)!=0)
-    UART0_DR_R=c;
-}
-void main (void)
-{
-    config_uart5();
-    nombre (); 
-} 

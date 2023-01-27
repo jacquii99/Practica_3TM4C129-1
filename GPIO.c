@@ -9,7 +9,7 @@ extern void Configurar_GPIO(void)
     SYSCTL->RCGCGPIO |= (1<<5) | (1<<8) | (1<<12);//habilita los puertos
     while((SYSCTL->PRGPIO&0x20)==0){};
     //Paso 2 
-      GPIOF -> LOCK =0x4C4F434B; 
+     // GPIOF -> LOCK =0x4C4F434B; 
  //   GPIO_PORTB_AHB_LOCK_R = 0x4C4F434B;
  //   GPIO_PORTB_AHB_CR_R = (1<<3);
     //Habilita los pines como salidas (output 1, input 0)
