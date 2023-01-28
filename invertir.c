@@ -1,5 +1,11 @@
  #include "lib/include.h"
-
+extern void printString(char* string)
+{
+    while(*string)
+    {
+        printChar(*(string++));
+    }
+}
  extern char * readString(char delimitador)//leer cadena 
 {
 
@@ -31,11 +37,7 @@
     q++; 
     p=p+2; 
     }
- }
- return name[0];
-
- extern char* agregarNumeros (char*string, char*num,int i)
- {
+    extern char* agregarNumeros (char*string, char*num,int i){
     int p=0;
     int q=0;
     while (1<i){
@@ -44,6 +46,10 @@
     num[1]=string(unsigned char);
     q++;
     p++; 
- }
+    }
  return num; 
  }
+ }
+ return name[0];
+
+ 

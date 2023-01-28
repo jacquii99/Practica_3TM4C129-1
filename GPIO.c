@@ -5,42 +5,26 @@
 extern void Configurar_GPIO(void)
 {
     //Paso 1 Enceder el periferico Run Clock Gate Control GPIO
-                    //     F        J         N 
-    SYSCTL->RCGCGPIO |= (1<<5) | (1<<8) | (1<<12);//habilita los puertos
+                    //     C
+    SYSCTL->RCGCGPIO |= (1<<2);//habilita los puertos
     while((SYSCTL->PRGPIO&0x20)==0){};
-    //Paso 2 
-     // GPIOF -> LOCK =0x4C4F434B; 
- //   GPIO_PORTB_AHB_LOCK_R = 0x4C4F434B;
- //   GPIO_PORTB_AHB_CR_R = (1<<3);
-    //Habilita los pines como salidas (output 1, input 0)
-    GPIOF_AHB->DIR |= (1<<0) | (1<<4); 
-    GPION->DIR |= (1<<0) | (1<<1);  
-    //habilita los pines como entradas (output1, input0)
-    GPIOJ_AHB->DIR |= (0<<1) | (0<<0);
     //borra el bit correspondiente en el registro (0 disabled, 1 enable)
-    GPIOJ_AHB->PUR =  (1<<1) | (1<<0);
-
+    GPIOC_AHB->PUR =  (1<<6) | (1<<7);
     //Paso 3  configurar GPIOAFSELF para habilitar pines como alternativos 
-    GPIOJ_AHB->AFSEL |= 0x00;
-    GPION->AFSEL |= 0x00;
-    GPIOF_AHB->AFSEL |= 0x00;
-
+    GPIOC_AHB->AFSEL |= 0x00;
+    GPIOC_AHB->PCTL |= 0x00;
+    GPIOC_AHB->AMSEL|= 0x00;
     //paso 4 establecer el campo EDMn en el registro GPIOPC pagina 753
-    GPIOJ_AHB->PCTL|= 0x00;
-    GPION->PCTL |= 0x00;
-    GPIOF_AHB->PCTL |= 0x00;
+    GPIOC_AHB->PCTL|= 0x00;
     //paso 5 habilitar pines como digitales 
-    GPIOF_AHB->DEN |= (1<<0) | (1<<4);
-    GPION->DEN |= (1<<0) | (1<<1);
-    GPIOJ_AHB->DEN |= (1<<1) | (1<<0);
-
+    GPIOC_AHB->DEN |= (1<<6)|(1<<7);
     //configurar evento de interrupcion PORTJ
-    GPIOJ_AHB->IM |= (0<<1) | (0<<0); //Limpiar los bits
-    GPIOJ_AHB->IS |= (0<<1) | (0<<0);
-    GPIOJ_AHB->IBE |= (0<<1) | (0<<0);
-    GPIOJ_AHB->IEV |= (1<<1) | (1<<0);
-    GPIOJ_AHB->RIS |= (0<<1) | (0<<0);
-    GPIOJ_AHB->IM |= (1<<1) | (1<<0);
+    GPIOC_AHB->IM |= (0<<1) | (0<<0); //Limpiar los bits
+    GPIOC_AHB->IS |= (0<<1) | (0<<0);
+    GPIOC_AHB->IBE |= (0<<1) | (0<<0);
+    GPIOC_AHB->IEV |= (1<<1) | (1<<0);
+    GPIOC_AHB->RIS |= (0<<1) | (0<<0);
+    GPIOC_AHB->IM |= (1<<1) | (1<<0);
     // numero de interrupcion PORTJ = 51
     // n=12 ----> [4n+3] [4n+2] [4n+1] [4n] ---> [4n+3]
  //   NVIC_PRI12_R = (NVIC_PRI12_R&0X00FFFFFF) | 0X80000000; //Jerarquia 4
@@ -70,5 +54,14 @@ extern void GPIOJ_INT_ISR(void)
    
     }
     GPIOJ_AHB->ICR |=(1<<0)|(1<<1);
+}
+extern void Delay(void)
+{
+    unsigned long volatile time; 
+    time=16000000; 
+    while(time)
+    {
+        time--; 
+    }
 }
 #endif /* INCLUDE_H_ */

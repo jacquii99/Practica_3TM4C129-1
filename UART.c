@@ -1,5 +1,5 @@
 #include "lib/include.h"
-
+//UART5 con fclk 40MHZ Baud-rate 28800
 extern void Configurar_UART5(void)
 {
     SYSCTL->RCGCUART  = (1<<5);   //Paso 1 habilitar (RCGCUART) para uart5 corresponde a PC6 Y PC7 pag.1164 
